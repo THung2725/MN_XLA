@@ -23,8 +23,8 @@
 \sigma_b^2(t) = \omega_1(t) \cdot \omega_2(t) \cdot [\mu_1(t) - \mu_2(t)]^2
 ```
 
-- \omega_1(t), \omega_2(t): xác suất xuất hiện của hai lớp
-- \mu_1(t), \mu_2(t): giá trị trung bình của hai lớp
+- ```math \omega_1(t), \omega_2(t):``` xác suất xuất hiện của hai lớp
+- ```math \mu_1(t), \mu_2(t):``` giá trị trung bình của hai lớp
 
 **Ví dụ:**  
 - Ảnh có histogram với 2 đỉnh rõ ràng, Otsu sẽ tìm ngưỡng ở giữa 2 đỉnh này
