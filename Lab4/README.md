@@ -9,10 +9,15 @@
 
 
 ## Công nghệ sử dụng
+- **Python:** Ngôn ngữ chính
+- **numpy:**
+- **scipy:**  giải quyết các bài toán kỹ thuật và toán học phức tạp
+- **skimage:** xử lý và phân tích hình ảnh
+- **ImageIO:** Đọc file ảnh với định dạng hiện đại
+- **Matplotlib:** Hiển thị ảnh trực quan
+## Chi tiết các phép biến đổi & công thức
 
-## Chi tiết phương pháp & công thức
-
-### 1. Phương pháp phân ngưỡng Otsu (Otsu's Thresholding)
+### 1. Phương pháp Otsu
 
 **Mục đích:**  
 - Tự động tìm giá trị ngưỡng tối ưu để phân chia ảnh thành hai lớp: foreground và background
@@ -22,19 +27,46 @@
 ```math
 \sigma_b^2(t) = \omega_1(t) \cdot \omega_2(t) \cdot [\mu_1(t) - \mu_2(t)]^2
 ```
-
-- ```math \omega_1(t), \omega_2(t):``` xác suất xuất hiện của hai lớp
-- ```math \mu_1(t), \mu_2(t):``` giá trị trung bình của hai lớp
-
 **Ví dụ:**  
 - Ảnh có histogram với 2 đỉnh rõ ràng, Otsu sẽ tìm ngưỡng ở giữa 2 đỉnh này
 
 **Code chính:**  
 ```python
-data = Image.open("moon.jpg").convert("L")
+data = Image.open('moon.jpg').convert('L')
 a = np.array(data)
 thres = threshold_otsu(a)
 b = a > thres
+b = Image.fromarray(b)
+```
+### 2. Phương pháp Adaptive Thesholding
+**Mục địch**
+- phân ngưỡng thích nghi được sử dụng để chuyển ảnh xám thành ảnh nhị phân trong các trường hợp ánh sáng không đồng đều
+**Nguyên lý**
+- chia ảnh thành các vùng nhỏ sau đó tính ngưỡng riêng của mỗi vùng rôi đem so sanh từng điểm ảnh với ngưỡng của vùng nếu mà sáng hơn ngưỡng thì thành trắng nếu không thì thành màu đen
+**Code chính**
+```python
+data = Image.open('moon.jpg').convert('L')
+a = np.array(data)
+thres = threshold_otsu(a)
+b = threshold_local(a, 39, offset=10)
+b = Image.fromarray(b)
 ```
 
-
+### 3.Phân vùng theo region
+**Mục địch**
+phân vùng theo vùng nhằm chia ảnh thành các khu vực có đặc điểm tương đồng về màu sắc độ sáng dùng đẻ tách vật thể khỏi nền
+**Nguyên lý**
+Chuyển ảnh sang ảnh xám, làm mịn, và nhị phân hóa bằng Otsu để tách nền và đối tượng, giảm nhiễu và tách rời các vùng gần nhau khoảng cách của cá điểm ảnh. Tính khoảng cách từ mỗi điểm ảnh nền đến điểm ảnh gần nhất thuộc đối tượng tạo các vùng cho thuật toán phân vùng
+**Code chính**
+```python
+data = cv2.imread('moon.jpg')
+a = cv2.cvtColor(data, cv2.COLOR_BGR2GRAY)
+thresh, b1 = cv2.threshold(a, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
+b2 = cv2.erode(b1, None, iterations = 2)
+dist_trans = cv2.distanceTransform(b2, 2, 3)
+thresh, dt = cv2.threshold(dist_trans, 1, 255, cv2.THRESH_BINARY)
+labelled, ncc = label(dt)
+labelled = labelled.astype(np.int32)
+cv2.watershed(data, labelled)
+b = Image.fromarray(labelled)
+```
