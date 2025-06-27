@@ -41,8 +41,10 @@ b = Image.fromarray(b)
 ### 2. Phương pháp Adaptive Thesholding
 **Mục địch**
 - phân ngưỡng thích nghi được sử dụng để chuyển ảnh xám thành ảnh nhị phân trong các trường hợp ánh sáng không đồng đều
+
 **Nguyên lý**
 - chia ảnh thành các vùng nhỏ sau đó tính ngưỡng riêng của mỗi vùng rôi đem so sanh từng điểm ảnh với ngưỡng của vùng nếu mà sáng hơn ngưỡng thì thành trắng nếu không thì thành màu đen
+
 **Code chính**
 ```python
 data = Image.open('moon.jpg').convert('L')
@@ -54,9 +56,11 @@ b = Image.fromarray(b)
 
 ### 3.Phân vùng theo region
 **Mục địch**
-phân vùng theo vùng nhằm chia ảnh thành các khu vực có đặc điểm tương đồng về màu sắc độ sáng dùng đẻ tách vật thể khỏi nền
+Phân theo vùng chia ảnh thành các khu vực mà các điểm ảnh giống nhau về độ sáng hoặc màu sắc. Mục đích chính là tách vật thể ra khỏi nền để xử lý hoặc phân tích dễ dàng hơn.
+
 **Nguyên lý**
-Chuyển ảnh sang ảnh xám, làm mịn, và nhị phân hóa bằng Otsu để tách nền và đối tượng, giảm nhiễu và tách rời các vùng gần nhau khoảng cách của cá điểm ảnh. Tính khoảng cách từ mỗi điểm ảnh nền đến điểm ảnh gần nhất thuộc đối tượng tạo các vùng cho thuật toán phân vùng
+Chuyển ảnh sang ảnh xám để dễ xử lý ảnh và nhị phân hóa bằng Otsu để tách nền và đối tượng, giảm nhiễu và tách rời các vùng gần nhau khoảng cách của cá điểm ảnh. Tính khoảng cách từ mỗi điểm ảnh nền đến điểm ảnh gần nhất thuộc đối tượng tạo các vùng cho thuật toán phân vùng
+
 **Code chính**
 ```python
 data = cv2.imread('moon.jpg')
