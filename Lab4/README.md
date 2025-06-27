@@ -10,7 +10,7 @@
 
 ## Công nghệ sử dụng
 - **Python:** Ngôn ngữ chính
-- **numpy:**
+- **numpy:** Xử lý ảnh dưới dạng mảng số học
 - **scipy:**  giải quyết các bài toán kỹ thuật và toán học phức tạp
 - **skimage:** xử lý và phân tích hình ảnh
 - **ImageIO:** Đọc file ảnh với định dạng hiện đại
