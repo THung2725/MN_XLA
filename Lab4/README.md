@@ -16,7 +16,10 @@
 - **ImageIO:** Đọc file ảnh với định dạng hiện đại
 - **Matplotlib:** Hiển thị ảnh trực quan
 ### Phương pháp Otsu
-**Mục đích:**  Tự động tìm giá trị ngưỡng tối ưu để phân chia ảnh thành hai lớp foreground và background tối đa hóa phương sai giữa các lớp tối thiểu hóa phương sai trong lớp
+**Mục đích:**  
+- Tự động tìm giá trị ngưỡng tối ưu để phân chia ảnh thành hai lớp foreground và background 
+- tối đa hóa phương sai giữa các lớp 
+- tối thiểu hóa phương sai trong lớp
 
 **Code chính:**  
 ```python
@@ -41,7 +44,8 @@ b = Image.fromarray(b)
 ```
 
 ### Phân vùng theo region
-**Mục địch:** Phân theo vùng chia ảnh thành các khu vực mà các điểm ảnh giống nhau về độ sáng hoặc màu sắc.Trong kiểu phân vùng này, có một số quy tắc được định sẵn mà pixel phải tuân theo để đảm bảo có thể phân loại thành các vùng pixel tương tự phương pháp phân vùng dựa trên khu vực được ưu tiên hơn phương pháp phân vùng dựa trên cạnh trong trường hợp ảnh bị nhiễu
+**Mục địch:** 
+Phân theo vùng chia ảnh thành các khu vực mà các điểm ảnh giống nhau về độ sáng hoặc màu sắc.Trong kiểu phân vùng này, có một số quy tắc được định sẵn mà pixel phải tuân theo để đảm bảo có thể phân loại thành các vùng pixel tương tự phương pháp phân vùng dựa trên khu vực được ưu tiên hơn phương pháp phân vùng dựa trên cạnh trong trường hợp ảnh bị nhiễu
 
 **Nguyên lý:** Chuyển ảnh sang ảnh xám để dễ xử lý ảnh và nhị phân hóa bằng Otsu để tách nền và đối tượng, giảm nhiễu và tách rời các vùng gần nhau khoảng cách của cá điểm ảnh. Tính khoảng cách từ mỗi điểm ảnh nền đến điểm ảnh gần nhất thuộc đối tượng tạo các vùng cho thuật toán phân vùng
 
@@ -180,7 +184,10 @@ b = nd.binary_closing(d1, structure=s, iterations=50)
 c  = Image.fromarray(b)
 iio.imsave("quang_truong_lam_vien.jpg", c.convert('L'))
 ```
-
+## CÀI ĐẶT THƯ VIỆN
+```python
+pip install pillow numpy matplotlib imageio opencv-python
+```
 
 ## TÀI LIỆU THAM KHẢO
 - [Xử lý ảnh với opencv các phép toán](https://www.iostream.co/article/xu-ly-anh-voi-opencv-cac-phep-toan-hinh-thai-hoc-Nljcg)
