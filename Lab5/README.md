@@ -58,7 +58,11 @@ bmg = abs(data - nd.shift(data, (0,1), order = 0))
 
 **Công thức toán học**
 
-- G = |Gx| + |Gy| hoặc G = \sqrt{Gx^2 + Gy^2}
+- G = |Gx| + |Gy| hoặc
+$$
+G = \sqrt{Gx^2 + Gy^2}
+$$
+
 
 Trong đó: 
 - `G`: là biên tổn hợp
